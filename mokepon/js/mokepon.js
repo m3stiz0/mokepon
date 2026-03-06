@@ -36,6 +36,8 @@ let botones = []
 
 let mascotaJugador
 
+let victoriasJugador = 0
+let victoriasEnemigos = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -224,27 +226,29 @@ function combate(){
         if(ataqueJugador[index] === ataqueEnemigo[index]){
             indexAmbosOponentes(index, index)
             crearMensaje("Hay un empate")
-        } 
-        
-    }
-
-    if(ataqueEnemigo == ataqueJugador){
-            crearMensaje("Hay un empate")
-        }else if((ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA') || (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') || (ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA')){
+            /* Cuando  hay empate no se suman victorias*/
+            /* victoriasJugador++ */
+            spanVidasJugador.innerHTML = victoriasJugador
+        } else if((ataqueJugador[index] === 'FUEGO' && ataqueEnemigo[index] === 'TIERRA') || (ataqueJugador[index] === 'AGUA' && ataqueEnemigo[index] === 'FUEGO') || (ataqueJugador[index] === 'TIERRA' && ataqueEnemigo[index] === 'AGUA')){
+            indexAmbosOponentes(index, index)
             crearMensaje("Felicidades has ganado esta ronda")
-            vidasEnemigo--
-            spanVidasEnemigo.innerHTML = vidasEnemigo
+            victoriasJugador++
+            spanVidasJugador.innerHTML = victoriasJugador
         }else{
+            indexAmbosOponentes(index, index)
             crearMensaje("Has perdido esta ronda")
-            vidasJugador--
-            spanVidasJugador.innerHTML = vidasJugador
+            victoriasEnemigos++
+            spanVidasEnemigo.innerHTML = victoriasEnemigos
         }
         revisarVidas()
+    }
 }
 function revisarVidas(){
-    if(vidasEnemigo == 0){
+    if(victoriasJugador === victoriasEnemigos){
+        crearMensajeFinal('Esto fue un empate, gran lucha!!!') 
+    }else if(victoriasJugador > victoriasEnemigos){
         crearMensajeFinal('La gloria es tuya, haz ganado 🎉')
-    }else if(vidasJugador == 0){
+    }else{
         crearMensajeFinal('Se perdio la batalla, pero no la guerra. Vuelve a intentarlo')
     }
 }
