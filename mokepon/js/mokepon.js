@@ -137,7 +137,7 @@ function extraerAtaques(mascotaJugador){
             ataques = mokepones[i].ataques
         }
     }
-    //console.log(ataques)
+    console.log(ataques)
     mostrarAtaques(ataques)
 }
 function mostrarAtaques(ataques){
@@ -153,10 +153,6 @@ function mostrarAtaques(ataques){
     botonTierra = document.getElementById('boton-tierra')
 
     botones = document.querySelectorAll('.BAtaque')
-
-    /* botonFuego.addEventListener('click', ataqueFuego)
-    botonAgua.addEventListener('click', ataqueAgua)
-    botonTierra.addEventListener('click', ataqueTierra) */
 }
 function secuenciaAtaque(){
     botones.forEach((boton) => {
@@ -164,12 +160,15 @@ function secuenciaAtaque(){
             if(e.target.textContent === '🔥'){
                 ataqueJugador.push('FUEGO')
                 boton.style.background = '#112f58'
+                boton.disabled = true
             }else if(e.target.textContent === '💧'){
                 ataqueJugador.push('AGUA')
                 boton.style.background = '#112f58'
+                boton.disabled = true
             }else{
                 ataqueJugador.push('TIERRA')
                 boton.style.background = '#112f58'
+                boton.disabled = true
             }
             ataqueAleatorioEnemigo()
         })
@@ -185,18 +184,6 @@ function seleccionarMascotaEnemigo(){
     secuenciaAtaque()
 }
 
-/* function ataqueFuego(){
-    ataqueJugador = 'FUEGO'
-    ataqueAleatorioEnemigo()
-}
-function ataqueAgua(){
-    ataqueJugador = 'AGUA'
-    ataqueAleatorioEnemigo()
-}
-function ataqueTierra(){
-    ataqueJugador = 'TIERRA'
-    ataqueAleatorioEnemigo()
-} */
 function ataqueAleatorioEnemigo(){
     ataqueAleatorio = aleatorio(0, mokepones.length - 1)
 
@@ -226,9 +213,9 @@ function combate(){
         if(ataqueJugador[index] === ataqueEnemigo[index]){
             indexAmbosOponentes(index, index)
             crearMensaje("Hay un empate")
-            /* Cuando  hay empate no se suman victorias*/
-            /* victoriasJugador++ */
-            spanVidasJugador.innerHTML = victoriasJugador
+            /* Cuando  hay empate no se suman victorias */
+            /* victoriasJugador++ 
+            spanVidasJugador.innerHTML = victoriasJugador */
         } else if((ataqueJugador[index] === 'FUEGO' && ataqueEnemigo[index] === 'TIERRA') || (ataqueJugador[index] === 'AGUA' && ataqueEnemigo[index] === 'FUEGO') || (ataqueJugador[index] === 'TIERRA' && ataqueEnemigo[index] === 'AGUA')){
             indexAmbosOponentes(index, index)
             crearMensaje("Felicidades has ganado esta ronda")
@@ -268,13 +255,6 @@ function crearMensaje(resultado){
 }
 function crearMensajeFinal(resultadoFinal){
     sectionMensajes.innerHTML = '<strong>'+resultadoFinal+'</strong>'
-
-    botonFuego.disabled = true
-
-    botonAgua.disabled = true
-        
-    botonTierra.disabled = true
-
     sectionReiniciar.style.display = "block"
 
 }
