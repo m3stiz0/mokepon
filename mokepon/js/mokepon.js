@@ -44,6 +44,8 @@ let vidasEnemigo = 3
 let ataquesMokepon
 let ataquesMokeponEnemigo
 
+let nombreAtaquesEnemigo
+
 let indexAtaqueJugador
 let indexAtaqueEnemigo
 
@@ -137,7 +139,7 @@ function extraerAtaques(mascotaJugador){
             ataques = mokepones[i].ataques
         }
     }
-    console.log(ataques)
+    //console.log(ataques)
     mostrarAtaques(ataques)
 }
 function mostrarAtaques(ataques){
@@ -170,6 +172,8 @@ function secuenciaAtaque(){
                 boton.style.background = '#112f58'
                 boton.disabled = true
             }
+            
+            console.log('Jugador', ataqueJugador) 
             ataqueAleatorioEnemigo()
         })
     })
@@ -187,14 +191,16 @@ function seleccionarMascotaEnemigo(){
 function ataqueAleatorioEnemigo(){
     ataqueAleatorio = aleatorio(0, mokepones.length - 1)
 
-    if(ataqueAleatorio == 0 || ataqueAleatorio == 1){
+    nombreAtaquesEnemigo = ataquesMokeponEnemigo[ataqueAleatorio].nombre
+
+    if(nombreAtaquesEnemigo === '🔥'){
         ataqueEnemigo.push('FUEGO')
-    }else if(ataqueAleatorio == 3 || ataqueAleatorio == 4){
+    }else if(nombreAtaquesEnemigo === '💧'){
         ataqueEnemigo.push('AGUA')
     }else{
         ataqueEnemigo.push('TIERRA')
     }
-    console.log(ataqueEnemigo)
+    console.log('Enemigo', ataqueEnemigo)
     inciarPelea()
 }
 function inciarPelea(){
