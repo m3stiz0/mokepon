@@ -50,20 +50,21 @@ let indexAtaqueJugador
 let indexAtaqueEnemigo
 
 class Mokepon {
-    constructor(nombre, foto, vida){
-        this.nombre =  nombre
-        this.foto = foto
-        this.vida = vida
-        this.ataques = [
-
-        ]
+    constructor(nombre,tipo,foto){
+        this.nombre=nombre;
+        this.tipo=tipo;
+        this.foto=foto;
+        this.ataques=[];
+        this.victorias=[];
     }
 }
 
-let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5)
-let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5)
-let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5)
-
+let hipodoge = new Mokepon('Hipodoge','agua', './assets/hipodoge.png')
+let capipepo = new Mokepon('Capipepo','tierra', './assets/capipepo.png')
+let ratigueya = new Mokepon('Ratigueya','fuego', './assets/ratigueya.png')
+/* let langostelvis = new Mokepon('Langostelvis','fuego', './assets/langostelvis.png')
+let pydos = new Mokepon('Pydos','agua', './assets/pydos.png')
+let tucapalma = new Mokepon('Tucapalma','tierra', './assets/tucapalma.png') */
 hipodoge.ataques.push(
     {nombre:'💧', id: 'boton-agua'},
     {nombre:'💧', id: 'boton-agua'},
@@ -85,7 +86,29 @@ ratigueya.ataques.push(
     {nombre:'💧', id: 'boton-agua'},
     {nombre:'🌱', id: 'boton-tierra'}
 )
-mokepones.push(hipodoge, capipepo, ratigueya)
+/* langostelvis.ataques.push(
+    {nombre:'🔥', id: 'boton-fuego'},
+    {nombre:'🔥', id: 'boton-fuego'},
+    {nombre:'🔥', id: 'boton-fuego'},
+    {nombre:'💧', id: 'boton-agua'},
+    {nombre:'🌱', id: 'boton-tierra'}
+)
+pydos.ataques.push(
+    {nombre:'🌱', id: 'boton-tierra'},
+    {nombre:'🌱', id: 'boton-tierra'},
+    {nombre:'🌱', id: 'boton-tierra'},
+    {nombre:'💧', id: 'boton-agua'},
+    {nombre:'🔥', id: 'boton-fuego'}
+)
+tucapalma.ataques.push(
+    {nombre:'💧', id: 'boton-agua'},
+    {nombre:'💧', id: 'boton-agua'},
+    {nombre:'💧', id: 'boton-agua'},
+    {nombre:'🔥', id: 'boton-fuego'},
+    {nombre:'🌱', id: 'boton-tierra'}
+) */
+
+mokepones.push(hipodoge, capipepo, ratigueya/* , langostelvis, pydos, tucapalma */)
 
 function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = "none"
@@ -173,7 +196,7 @@ function secuenciaAtaque(){
                 boton.disabled = true
             }
             
-            console.log('Jugador', ataqueJugador) 
+            //console.log('Jugador', ataqueJugador) 
             ataqueAleatorioEnemigo()
         })
     })
@@ -200,7 +223,7 @@ function ataqueAleatorioEnemigo(){
     }else{
         ataqueEnemigo.push('TIERRA')
     }
-    console.log('Enemigo', ataqueEnemigo)
+    //console.log('Enemigo', ataqueEnemigo)
     inciarPelea()
 }
 function inciarPelea(){
