@@ -27,6 +27,9 @@ let opcionDeMokepones
 let inputHipodoge
 let inputCapipepo
 let inputRatigueya
+let inputTucapalma
+let inputLangostelvis
+let inputPydos
 
 let botonFuego
 let botonAgua
@@ -49,6 +52,10 @@ let nombreAtaquesEnemigo
 let indexAtaqueJugador
 let indexAtaqueEnemigo
 
+let validacion;
+let ataqueExtra={ nombre:'agua', id: "boton-agua" }
+let sinAtaqueExtra={ nombre:'sin-ataque', id: "boton-sin-ataque" }
+
 class Mokepon {
     constructor(nombre,tipo,foto){
         this.nombre=nombre;
@@ -62,9 +69,10 @@ class Mokepon {
 let hipodoge = new Mokepon('Hipodoge','agua', './assets/hipodoge.png')
 let capipepo = new Mokepon('Capipepo','tierra', './assets/capipepo.png')
 let ratigueya = new Mokepon('Ratigueya','fuego', './assets/ratigueya.png')
-/* let langostelvis = new Mokepon('Langostelvis','fuego', './assets/langostelvis.png')
+let langostelvis = new Mokepon('Langostelvis','fuego', './assets/langostelvis.png')
 let pydos = new Mokepon('Pydos','agua', './assets/pydos.png')
-let tucapalma = new Mokepon('Tucapalma','tierra', './assets/tucapalma.png') */
+let tucapalma = new Mokepon('Tucapalma','tierra', './assets/tucapalma.png')
+
 hipodoge.ataques.push(
     {nombre:'💧', id: 'boton-agua'},
     {nombre:'💧', id: 'boton-agua'},
@@ -86,7 +94,7 @@ ratigueya.ataques.push(
     {nombre:'💧', id: 'boton-agua'},
     {nombre:'🌱', id: 'boton-tierra'}
 )
-/* langostelvis.ataques.push(
+langostelvis.ataques.push(
     {nombre:'🔥', id: 'boton-fuego'},
     {nombre:'🔥', id: 'boton-fuego'},
     {nombre:'🔥', id: 'boton-fuego'},
@@ -106,9 +114,9 @@ tucapalma.ataques.push(
     {nombre:'💧', id: 'boton-agua'},
     {nombre:'🔥', id: 'boton-fuego'},
     {nombre:'🌱', id: 'boton-tierra'}
-) */
+)
 
-mokepones.push(hipodoge, capipepo, ratigueya/* , langostelvis, pydos, tucapalma */)
+mokepones.push(hipodoge, capipepo, ratigueya, langostelvis, pydos, tucapalma)
 
 function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = "none"
@@ -127,6 +135,9 @@ function iniciarJuego(){
             inputHipodoge = document.getElementById('Hipodoge')
             inputCapipepo = document.getElementById('Capipepo')
             inputRatigueya = document.getElementById('Ratigueya')
+            inputTucapalma = document.getElementById('Tucapalma')
+            inputLangostelvis = document.getElementById('Langostelvis')
+            inputPydos = document.getElementById('Pydos')
         }
     )
 
@@ -147,12 +158,79 @@ function seleccionarMascotaJugador(){
     }else if(inputRatigueya.checked){
         spanMascotaJugador.innerHTML = inputRatigueya.id
         mascotaJugador = inputRatigueya.id
+    }else if(inputLangostelvis.checked){
+        spanMascotaJugador.innerHTML = inputLangostelvis.id;
+        mascotaJugador = inputLangostelvis.id;
+    } else if(inputPydos.checked){
+        spanMascotaJugador.innerHTML = inputPydos.id;
+        mascotaJugador = inputPydos.id;
+    }else if(inputTucapalma.checked){
+        spanMascotaJugador.innerHTML = inputTucapalma.id;
+        mascotaJugador = inputTucapalma.id;    
     }else{
         alert('Seleccionaste PERDER')
     }
 
     extraerAtaques(mascotaJugador)
     seleccionarMascotaEnemigo()
+}
+
+function vertificarTipos(mascotaJugador){
+    for (let i = 0; i < mokepones.length; i++) {
+        if (mascotaJugador===mokepones[i].nombre) {
+            tipoMokeponJugador=mokepones[i].tipo
+        } 
+    }
+    
+    let mokeponGanadorTipo;    
+
+    if (tipoMokeponJugador===tipoMokemonPC) {
+        seccionMensaje.innerHTML="Empate de tipos! Ambos mokepones carecen de un ataque extra"
+        extra.nombre=tipoMokeponJugador
+        extra.id=`boton-${tipoMokeponJugador}`
+    }//ninguno tiene un ataque extra;
+    else if(tipoMokeponJugador=="tierra"&&tipoMokemonPC=="agua"){
+        validacion=true;
+        extra.nombre=tipoMokeponJugador
+        extra.id=`boton-${tipoMokeponJugador}`
+        seccionMensaje.innerHTML=`${mascotaJugador} tiene la ventaja por ser tipo ${extra.nombre} tiene un ataque extra`
+
+   }else if(tipoMokeponJugador=="agua"&&tipoMokemonPC=="fuego"){
+        validacion=true;
+        extra.nombre=tipoMokeponJugador
+        extra.id=`boton-${tipoMokeponJugador}`
+        seccionMensaje.innerHTML=`${mascotaJugador} tiene la ventaja por ser tipo ${extra.nombre} tiene un ataque extra`
+
+   }else if(tipoMokeponJugador=="fuego"&&tipoMokemonPC=="tierra"){
+        validacion=true;
+        extra.nombre=tipoMokeponJugador
+        extra.id=`boton-${tipoMokeponJugador}`
+        seccionMensaje.innerHTML=`${mascotaJugador} tiene la ventaja por ser tipo ${extra.nombre} tiene un ataque extra`
+
+   }else{
+    validacion=false;
+    extra.nombre=tipoMokemonPC
+    extra.id=`boton-${tipoMokemonPC}`
+    seccionMensaje.innerHTML=`${mascotaEnemigo} tiene la ventaja por ser tipo ${extra.nombre} tiene un ataque extra`
+   }
+   
+   if (validacion) {
+    mokeponGanadorTipo=mascotaJugador;
+   }else{
+    mokeponGanadorTipo=mascotaEnemigo
+   }
+ 
+   
+   for (let i = 0; i < mokepones.length; i++) {
+
+        if (mokeponGanadorTipo===mokepones[i].nombre) {
+            let mokepon = mokepones[i].ataques
+            mokepon.push(extra);
+        } else if(mokeponGanadorTipo!==mokepones[i].nombre) {
+            let mokepon = mokepones[i].ataques
+            mokepon.push(noExtra);
+        }
+    }
 }
 
 function extraerAtaques(mascotaJugador){
@@ -196,7 +274,7 @@ function secuenciaAtaque(){
                 boton.disabled = true
             }
             
-            //console.log('Jugador', ataqueJugador) 
+            console.log('Jugador', ataqueJugador) 
             ataqueAleatorioEnemigo()
         })
     })
@@ -223,7 +301,7 @@ function ataqueAleatorioEnemigo(){
     }else{
         ataqueEnemigo.push('TIERRA')
     }
-    //console.log('Enemigo', ataqueEnemigo)
+    console.log('Enemigo', ataqueEnemigo)
     inciarPelea()
 }
 function inciarPelea(){
@@ -237,15 +315,15 @@ function indexAmbosOponentes(jugador, enemigo){
     indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 }
 function combate(){
-
     for (let index = 0; index < ataqueJugador.length; index++) {
         if(ataqueJugador[index] === ataqueEnemigo[index]){
             indexAmbosOponentes(index, index)
             crearMensaje("Hay un empate")
-            /* Cuando  hay empate no se suman victorias */
-            /* victoriasJugador++ 
-            spanVidasJugador.innerHTML = victoriasJugador */
-        } else if((ataqueJugador[index] === 'FUEGO' && ataqueEnemigo[index] === 'TIERRA') || (ataqueJugador[index] === 'AGUA' && ataqueEnemigo[index] === 'FUEGO') || (ataqueJugador[index] === 'TIERRA' && ataqueEnemigo[index] === 'AGUA')){
+        } else if((ataqueJugador[index] === 'FUEGO' && ataqueEnemigo[index] === 'TIERRA') 
+                || (ataqueJugador[index] === 'AGUA' && ataqueEnemigo[index] === 'FUEGO') 
+                || (ataqueJugador[index] === 'TIERRA' && ataqueEnemigo[index] === 'AGUA')
+                || (ataqueJugador[index] === 'sin-ataque')
+            ){
             indexAmbosOponentes(index, index)
             crearMensaje("Felicidades has ganado esta ronda")
             victoriasJugador++
@@ -297,4 +375,3 @@ function aleatorio(min, max){
 
 
 window.addEventListener('load', iniciarJuego)
-
