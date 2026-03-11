@@ -39,21 +39,19 @@
     <section id="ver-mapa">
         <h1 class="titulo">Recorre el mapa con tu Mokepon 🔥💧🌱</h1>
         <canvas id="mapa"></canvas>
-        <button onclick="moverCapipepo()">Mover</button>
-
+        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
     </section>
 
     <section id="seleccionar-ataque">
         <h1 class="titulo">Mokepon 🔥💧🌱</h1>
-
+        
         <h2 class="subtitulo">Elige a tú ataque:</h2>
 
         <div id="contenedorAtaques" class="tarjetas-ataques">
             <!--Se genera por html, de acuerdo a la longitud del arreglo ataquesMoquepon-->
-
-            <!-- <button id="boton-fuego" class="boton-de-ataque">Fuego 🔥</button>
-            <button id="boton-agua" class="boton-de-ataque">Agua 💧</button>
-            <button id="boton-tierra" class="boton-de-ataque">Tierra 🌱</button> -->
         </div>
         
         <div id ="mensajes">

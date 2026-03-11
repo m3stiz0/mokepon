@@ -52,19 +52,23 @@ let indexAtaqueJugador
 let indexAtaqueEnemigo
 let lienzo = mapa.getContext("2d")
 
+let intervalo
+
 class Mokepon {
     constructor(nombre,tipo,foto){
-        this.nombre=nombre;
-        this.tipo=tipo;
-        this.foto=foto;
-        this.ataques=[];
-        this.victorias=[];
-        this.x = 20;
-        this.y = 30;
-        this.ancho = 80;
-        this.alto = 80;
+        this.nombre=nombre
+        this.tipo=tipo
+        this.foto=foto
+        this.ataques=[]
+        this.victorias=[]
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
         this.mapaFoto = new Image()
         this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 
@@ -148,6 +152,7 @@ function iniciarJuego(){
 function seleccionarMascotaJugador(){
     //sectionSeleccionarAtaque.style.display = "flex"    retiro esto y agrego el canva
     sectionVerMapa.style.display = "flex"
+    intervalo = setInterval(pintarPersonaje, 50)
 
     sectionSeleccionarMascota.style.display = "none"    
 
@@ -309,6 +314,8 @@ function aleatorio(min, max){
 }
 //Pinta el personaje
 function pintarPersonaje(){
+    capipepo.x = capipepo.x + capipepo.velocidadX
+    capipepo.y = capipepo.y + capipepo.velocidadY
     lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
         capipepo.mapaFoto, 
@@ -318,11 +325,22 @@ function pintarPersonaje(){
         capipepo.alto
     )
 }
-//Mueve el personaje, en el eje de X
-function moverCapipepo(){
-    capipepo.x = capipepo.x + 5
-    //capipepo.y = capipepo.y + 5
-    pintarPersonaje()
+//Se mueve el personaje en el canva
+function moverArriba(){
+    capipepo.velocidadY = - 5
+}
+function moverDerecha(){
+    capipepo.velocidadX = 5
+}
+function moverAbajo(){
+    capipepo.velocidadY = 5
+}
+function moverIzquierda(){
+    capipepo.velocidadX = - 5
+}
+function detenerMovimiento(){
+    capipepo.velocidadX = 0
+    capipepo.velocidadY = 0
 }
 window.addEventListener('load', iniciarJuego)
 
