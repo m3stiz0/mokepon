@@ -17,6 +17,8 @@ const ataquesDelJugador = document.getElementById('ataques-del-jugador')
 const ataquesDelEnemigo = document.getElementById('ataques-del-enemigo')
 const contenedorTarjetas =document.getElementById('contenedorTarjetas')
 const contenedorAtaques = document.getElementById('contenedorAtaques')
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
 
 let mokepones = []
 
@@ -48,6 +50,7 @@ let nombreAtaquesEnemigo
 
 let indexAtaqueJugador
 let indexAtaqueEnemigo
+let lienzo = mapa.getContext("2d")
 
 class Mokepon {
     constructor(nombre,tipo,foto){
@@ -56,6 +59,12 @@ class Mokepon {
         this.foto=foto;
         this.ataques=[];
         this.victorias=[];
+        this.x = 20;
+        this.y = 30;
+        this.ancho = 80;
+        this.alto = 80;
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
     }
 }
 
@@ -114,6 +123,8 @@ function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = "none"
     sectionReiniciar.style.display = "none"
 
+    sectionVerMapa.style.display = 'none'
+
     mokepones.forEach(
         (mokepon) => {
             opcionDeMokepones = `
@@ -135,7 +146,9 @@ function iniciarJuego(){
     botonReinicar.addEventListener('click', reiniciarJuego)
 }
 function seleccionarMascotaJugador(){
-    sectionSeleccionarAtaque.style.display = "flex"    
+    //sectionSeleccionarAtaque.style.display = "flex"    retiro esto y agrego el canva
+    sectionVerMapa.style.display = "flex"
+
     sectionSeleccionarMascota.style.display = "none"    
 
     if(inputHipodoge.checked){
@@ -294,7 +307,22 @@ function reiniciarJuego(){
 function aleatorio(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
-
+//Pinta el personaje
+function pintarPersonaje(){
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        capipepo.mapaFoto, 
+        capipepo.x,
+        capipepo.y,
+        capipepo.ancho,
+        capipepo.alto
+    )
+}
+//Mueve el personaje, en el eje de X
+function moverCapipepo(){
+    capipepo.x = capipepo.x + 5
+    //capipepo.y = capipepo.y + 5
+    pintarPersonaje()
+}
 window.addEventListener('load', iniciarJuego)
 
