@@ -151,10 +151,11 @@ function iniciarJuego(){
 }
 function seleccionarMascotaJugador(){
     //sectionSeleccionarAtaque.style.display = "flex"    retiro esto y agrego el canva
-    sectionVerMapa.style.display = "flex"
-    intervalo = setInterval(pintarPersonaje, 50)
+    sectionSeleccionarMascota.style.display = "none"
 
-    sectionSeleccionarMascota.style.display = "none"    
+    sectionVerMapa.style.display = "flex"
+   iniciarMapa()
+
 
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
@@ -341,6 +342,33 @@ function moverIzquierda(){
 function detenerMovimiento(){
     capipepo.velocidadX = 0
     capipepo.velocidadY = 0
+}
+
+function sePresionoUnaTecla(e){
+    console.log(e.key)
+    switch (e.key) {
+        case 'ArrowUp':
+            moverArriba()
+            break
+        case 'ArrowRight':
+            moverDerecha()
+            break
+        case 'ArrowDown':
+            moverAbajo()
+            break
+        case 'ArrowLeft':
+            moverIzquierda()
+            break
+    
+        default:
+            break;
+    }
+}
+function iniciarMapa(){
+    intervalo = setInterval(pintarPersonaje, 50)
+
+    window.addEventListener('keydown', sePresionoUnaTecla)
+    window.addEventListener('keyup', detenerMovimiento)
 }
 window.addEventListener('load', iniciarJuego)
 
