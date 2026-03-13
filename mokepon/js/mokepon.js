@@ -37,6 +37,7 @@ let botonTierra
 let botones = []
 
 let mascotaJugador
+let mascotaJugadorObjeto
 
 let victoriasJugador = 0
 let victoriasEnemigos = 0
@@ -53,6 +54,10 @@ let indexAtaqueEnemigo
 let lienzo = mapa.getContext("2d")
 
 let intervalo
+
+let mapaBackground = new Image()
+mapaBackground.src = './assets/mokemap.png'
+
 
 class Mokepon {
     constructor(nombre,tipo,foto){
@@ -153,10 +158,6 @@ function seleccionarMascotaJugador(){
     //sectionSeleccionarAtaque.style.display = "flex"    retiro esto y agrego el canva
     sectionSeleccionarMascota.style.display = "none"
 
-    sectionVerMapa.style.display = "flex"
-   iniciarMapa()
-
-
     if(inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -169,8 +170,12 @@ function seleccionarMascotaJugador(){
     }else{
         alert('Seleccionaste PERDER')
     }
-
+    
     extraerAtaques(mascotaJugador)
+
+    sectionVerMapa.style.display = "flex"
+    iniciarMapa()
+    
     seleccionarMascotaEnemigo()
 }
 
@@ -314,34 +319,41 @@ function aleatorio(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 //Pinta el personaje
-function pintarPersonaje(){
-    capipepo.x = capipepo.x + capipepo.velocidadX
-    capipepo.y = capipepo.y + capipepo.velocidadY
+function pintarCanvas(){
+    mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
     lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
-        capipepo.mapaFoto, 
-        capipepo.x,
-        capipepo.y,
-        capipepo.ancho,
-        capipepo.alto
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    lienzo.drawImage(
+        mascotaJugadorObjeto.mapaFoto, 
+        mascotaJugadorObjeto.x,
+        mascotaJugadorObjeto.y,
+        mascotaJugadorObjeto.ancho,
+        mascotaJugadorObjeto.alto
     )
 }
 //Se mueve el personaje en el canva
 function moverArriba(){
-    capipepo.velocidadY = - 5
+    mascotaJugadorObjeto.velocidadY = - 5
 }
 function moverDerecha(){
-    capipepo.velocidadX = 5
+    mascotaJugadorObjeto.velocidadX = 5
 }
 function moverAbajo(){
-    capipepo.velocidadY = 5
+    mascotaJugadorObjeto.velocidadY = 5
 }
 function moverIzquierda(){
-    capipepo.velocidadX = - 5
+    mascotaJugadorObjeto.velocidadX = - 5
 }
 function detenerMovimiento(){
-    capipepo.velocidadX = 0
-    capipepo.velocidadY = 0
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY = 0
 }
 
 function sePresionoUnaTecla(e){
@@ -365,10 +377,21 @@ function sePresionoUnaTecla(e){
     }
 }
 function iniciarMapa(){
-    intervalo = setInterval(pintarPersonaje, 50)
+    mapa.width = 320
+    mapa.height = 240
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+    console.log(mascotaJugadorObjeto, mascotaJugador)
+    intervalo = setInterval(pintarCanvas, 50)
 
     window.addEventListener('keydown', sePresionoUnaTecla)
     window.addEventListener('keyup', detenerMovimiento)
+}
+function obtenerObjetoMascota(){
+    for (let i = 0; i < mokepones.length; i++) {
+        if (mascotaJugador === mokepones[i].nombre) {
+            return mokepones[i]
+        }
+    }
 }
 window.addEventListener('load', iniciarJuego)
 
