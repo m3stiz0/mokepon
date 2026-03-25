@@ -109,6 +109,16 @@ input:checked + label{
     align-items:center;
     justify-content: center;
 }
+#ver-mapa button{
+    width: 80px; /* define tu ancho deseado */
+    height: 40px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 2px solid white;
+    color:white;
+    margin: 5px 0;
+    font-family: 'Poppins', sans-serif;
+}
 /* #mapa {
     border: 2px solid white;
 } */
@@ -117,5 +127,13 @@ input:checked + label{
 @media (max-width: 480px){
     .tarjetas, .tarjetas-ataques {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 480px){
+    #ver-mapa div{
+        display: flex;
+        flex-direction: column;
+        align-items: center
     }
 }
