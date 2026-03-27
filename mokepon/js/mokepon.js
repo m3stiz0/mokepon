@@ -202,7 +202,24 @@ function iniciarJuego(){
     bontonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
     botonReinicar.addEventListener('click', reiniciarJuego)
+
+    unirseAljuego()
 }
+/*Peticion asincrona*/
+function unirseAljuego(){
+    fetch("http://localhost:8080/unirse")
+        .then(function (res){
+            //console.log(res)
+            if(res.ok){
+                res.text()
+                    .then(function(respuesta){
+                        console.log(respuesta)
+                    })
+            }
+        })
+
+}
+
 function seleccionarMascotaJugador(){
     //sectionSeleccionarAtaque.style.display = "flex"    retiro esto y agrego el canva
     sectionSeleccionarMascota.style.display = "none"
