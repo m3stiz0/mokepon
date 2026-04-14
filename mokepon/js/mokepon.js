@@ -21,6 +21,8 @@ const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 const anchoMaximoMapa = 350
 
+let jugadorId = null
+
 let mokepones = []
 
 let ataqueJugador = []
@@ -68,7 +70,6 @@ if (anchoDelMapa > anchoMaximoMapa){
 alturabuscada = anchoDelMapa * 600 / 800
 mapa.width = anchoDelMapa
 mapa.height = alturabuscada
-
 
 
 class Mokepon {
@@ -205,7 +206,7 @@ function iniciarJuego(){
 
     unirseAljuego()
 }
-/*Peticion asincrona*/
+/*Peticion asincrona GET*/
 function unirseAljuego(){
     fetch("http://localhost:8080/unirse")
         .then(function (res){
@@ -214,6 +215,7 @@ function unirseAljuego(){
                 res.text()
                     .then(function(respuesta){
                         console.log(respuesta)
+                        jugadorId = respuesta
                     })
             }
         })
@@ -236,11 +238,26 @@ function seleccionarMascotaJugador(){
     }else{
         alert('Seleccionaste PERDER')
     }
+
+    seleccionarMokepon(mascotaJugador)
     
     extraerAtaques(mascotaJugador)
 
     sectionVerMapa.style.display = "flex"
     iniciarMapa()
+}
+
+/*Peticion asincrona POST*/
+function seleccionarMokepon(mascotaJugador){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+        method: "post",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+            mokepon: mascotaJugador
+        })
+    })
 }
 
 function extraerAtaques(mascotaJugador){
@@ -449,7 +466,7 @@ function sePresionoUnaTecla(e){
 function iniciarMapa(){
 
     mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
-    console.log(mascotaJugadorObjeto, mascotaJugador)
+    //console.log(mascotaJugadorObjeto, mascotaJugador)
     intervalo = setInterval(pintarCanvas, 50)
 
     window.addEventListener('keydown', sePresionoUnaTecla)

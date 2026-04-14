@@ -1,6 +1,10 @@
 const express = require("express")
+const cors = require("cors")
 
 const app = express()
+
+app.use(cors()) // Para evitar errores de permisos
+app.use(express.json()) // <--- ¡ESTA ES VITAL para que req.body no llegue vacío!
 
 const jugadores = []
 
@@ -8,19 +12,44 @@ class Jugador {
     constructor(id){
         this.id = id
     }
+    asignarMokepon(mokepon){
+        this.mokepon = mokepon
+    }
 }
 
-/* End Point */
+class Mokepon {
+    constructor(nombre){
+        this.nombre = nombre
+    }
+}
+/* End Point GET*/
 app.get("/unirse", (req, res) => {
     const id = `${Math.random()}`
 
     const jugador = new Jugador(id)
-    jugadores.push(Jugador)
+
+    jugadores.push(jugador)
 
     res.setHeader("Access-Control-Allow-Origin", "*")
 
-    res.send("Hola desde el  servidor -> " + id)
+    res.send(id)
 })
+
+/* End Point POST*/
+app.post("/mokepon/:jugadorId", (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const nombre = req.body.mokepon || ""
+    const mokepon = new Mokepon(nombre)
+    
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id) 
+    if(jugadorIndex >= 0){
+        jugadores[jugadorIndex].asignarMokepon(mokepon)
+    }
+    console.log(jugadores)
+    console.log(jugadorId)
+    res.end()
+})
+
 app.listen(8080, () => {
     console.log('Servidor funcionando')
 })
