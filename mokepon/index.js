@@ -9,20 +9,20 @@ app.use(express.json()) // <--- Â¡ESTA ES VITAL para que req.body no llegue vacÃ
 const jugadores = []
 
 class Jugador {
-    constructor(id){
+    constructor(id) {
         this.id = id
     }
-    asignarMokepon(mokepon){
+    asignarMokepon(mokepon) {
         this.mokepon = mokepon
     }
-    actualizarMokepon(x, y){
+    actualizarMokepon(x, y) {
         this.x = x
         this.y = y
     }
 }
 
 class Mokepon {
-    constructor(nombre){
+    constructor(nombre) {
         this.nombre = nombre
     }
 }
@@ -44,9 +44,9 @@ app.post("/mokepon/:jugadorId", (req, res) => {
     const jugadorId = req.params.jugadorId || ""
     const nombre = req.body.mokepon || ""
     const mokepon = new Mokepon(nombre)
-    
-    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id) 
-    if(jugadorIndex >= 0){
+
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+    if (jugadorIndex >= 0) {
         jugadores[jugadorIndex].asignarMokepon(mokepon)
     }
     console.log(jugadores)
@@ -59,11 +59,12 @@ app.post("/mokepon/:jugadorId/posicion", (req, res) => {
     const x = req.body.x || 0
     const y = req.body.y || 0
 
-    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id) 
-    if(jugadorIndex >= 0){
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+    if (jugadorIndex >= 0) {
         jugadores[jugadorIndex].actualizarMokepon(x, y)
-        res.end()
     }
+    const enemigos = jugadores.filter((jugador) => jugadorId !== jugador.id)
+    res.send({ enemigos })
 })
 app.listen(8080, () => {
     console.log('Servidor funcionando')
