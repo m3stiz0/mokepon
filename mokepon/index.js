@@ -3,6 +3,7 @@ const cors = require("cors")
 
 const app = express()
 
+app.use(express.static('public')) // Sirve la carpeta public, para que, los que esten en el mismo wifi o red puedan acceder al juego o algún recurso. Por ejemplo: http://[IP_ADDRESS]/
 app.use(cors()) // Para evitar errores de permisos
 app.use(express.json()) // <--- ¡ESTA ES VITAL para que req.body no llegue vacío!
 
@@ -42,7 +43,7 @@ app.get("/unirse", (req, res) => {
     res.send(id)
 })
 
-/* End Point POST*/
+/* End Point POST - Enviamos*/
 app.post("/mokepon/:jugadorId", (req, res) => {
     const jugadorId = req.params.jugadorId || ""
     const nombre = req.body.mokepon || ""

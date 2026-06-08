@@ -230,7 +230,7 @@ function unirseAljuego() {
 
 function seleccionarMascotaJugador() {
     //sectionSeleccionarAtaque.style.display = "flex"    retiro esto y agrego el canva
-    sectionSeleccionarMascota.style.display = "none"
+    //sectionSeleccionarMascota.style.display = "none" lo llevo abajo
 
     if (inputHipodoge.checked) {
         spanMascotaJugador.innerHTML = inputHipodoge.id
@@ -243,8 +243,9 @@ function seleccionarMascotaJugador() {
         mascotaJugador = inputRatigueya.id
     } else {
         alert('Seleccionaste PERDER')
+        return
     }
-
+    sectionSeleccionarMascota.style.display = "none"
     seleccionarMokepon(mascotaJugador)
 
     extraerAtaques(mascotaJugador)

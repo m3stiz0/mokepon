@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="icon" href="data:,">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <section id="seleccionar-mascota">
         <!-- <h1 class="titulo">MOKEPON! 🔥💧🌱</h1> -->
@@ -17,7 +19,7 @@
 
         <div id="contenedorTarjetas" class="tarjetas">
             <!--Se genera por html, de acuerdo a la longitud del arreglo o clase Mokepones y opcionDeMokepones-->
-            
+
         </div>
 
         <button id="boton-mascota">Continuar</button>
@@ -26,31 +28,35 @@
     <section id="ver-mapa">
         <h2 class="subtitulo">Recorre el mapa con tu Mokepon 🔥💧🌱</h2>
         <canvas id="mapa"></canvas>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()" 
+                ontouchstart="detenerMovimiento()" ontouchend="moverArriba()">Arriba</button>
         <div>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()" 
+                    ontouchstart="detenerMovimiento()" ontouchend="moverIzquierda()">Izquierda</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()" 
+                    ontouchstart="detenerMovimiento()" ontouchend="moverAbajo()">Abajo</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()" 
+                    ontouchstart="detenerMovimiento()" ontouchend="moverDerecha()">Derecha</button>
         </div>
     </section>
-
+    -+
     <section id="seleccionar-ataque">
         <h1 class="titulo">Mokepon 🔥💧🌱</h1>
-        
+
         <h2 class="subtitulo">Elige a tú ataque:</h2>
 
         <div id="contenedorAtaques" class="tarjetas-ataques">
             <!--Se genera por html, de acuerdo a la longitud del arreglo ataquesMoquepon-->
         </div>
-        
-        <div id ="mensajes">
+
+        <div id="mensajes">
             <!--p id="">Tú mascota atacó con FUEGO, la mascota del enemigo atacó con TIERRA - GANASTE!🎉</p-->
             <p id="resultado">Mucha suerte!!!</p>
 
             <section id="reiniciar">
                 <button id="boton-reiniciar">Volver a jugar</button>
             </section>
-        </div> 
+        </div>
 
         <div class="ataques">
             <div class="ataques-jugador">
@@ -62,9 +68,10 @@
                 <p id="vidas-enemigo"> <strong>0</strong></p>
                 <p id="mascota-enemigo"></p>
                 <div id="ataques-del-enemigo"></div>
-            </div>            
+            </div>
         </div>
     </section>
-    <script src="./js/mokepon.js"></script>    
-</body> 
+    <script src="./js/mokepon.js"></script>
+</body>
+
 </html>
